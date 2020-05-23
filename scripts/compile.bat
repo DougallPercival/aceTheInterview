@@ -1,7 +1,8 @@
 @echo off 
+setlocal
 
-set path_script=D:\Dougall\Work\STC\Dissem\WFH_COVID\DAT\scripts\ui
-set path_view=D:\Dougall\Work\STC\Dissem\WFH_COVID\DAT\app\view
+set path_script=%~dp0
+set path_view=%~dp0..\ui
 
 
 for %%f in (%path_view%\*.ui) do (
