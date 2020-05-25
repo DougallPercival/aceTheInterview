@@ -2,12 +2,15 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>709</width>
-    <height>515</height>
+    <height>514</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -129,9 +132,9 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>150</y>
+      <y>140</y>
       <width>211</width>
-      <height>16</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
@@ -145,13 +148,13 @@
      <string>User:</string>
     </property>
    </widget>
-   <widget class="QLabel" name="questionbase_label">
+   <widget class="QLabel" name="loadQB">
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>180</y>
+      <y>175</y>
       <width>501</width>
-      <height>16</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
@@ -280,6 +283,19 @@
     </property>
     <property name="text">
      <string>Specify number of questions</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="question_delete_2">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>350</y>
+      <width>121</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Download Questions</string>
     </property>
    </widget>
   </widget>

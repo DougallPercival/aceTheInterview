@@ -21,14 +21,34 @@ class DataConnector():
 
 
 class QuestionBaseConnector(DataConnector):
+	"""
+	Questions have 3 keys - QUESTION, ANSWER, and CATEGORIES
+	"""
 	
 	
 	def __init__(self, dataStore):
 		DataConnector.__init__(self, dataStore)
 		self.database = r"{}\QuestionBase".format(self.dataStore)
-		print(self.database)
 		
-		
+	
+	def getQuestionBases(self):
+		"""
+		Load all question base names and ids
+		"""
+		bases = os.listdir("{}".format(self.database))
+		# ID and name
+		qbs = []
+		for qb in bases:
+			id = qb.split('_')[0]
+			with open("{}\{}".format(self.database, qb), 'r') as f:
+				data = json.load(f)
+			f.close()
+			if not data['DELETED']:
+				name = data['NAME']
+				qbs.append((name, id))
+
+		return qbs
+	
 	def newQB(self, name):
 		"""
 		Generate a new question base
@@ -41,6 +61,7 @@ class QuestionBaseConnector(DataConnector):
 		base_setup = {}
 		base_setup['ID'] = id
 		base_setup['NAME'] = name
+		base_setup['DELETED'] = False
 		base_setup['QUESTIONS'] = []
 		
 		with open("{}\{}".format(self.database, new_base), 'w') as f:
@@ -60,6 +81,21 @@ class QuestionBaseConnector(DataConnector):
 			raise ValueError("No question base by that ID found in the Data Store")
 		
 		return qb
+		
+	def setDeleted(self, qbid):
+		"""
+		Toggle the deleted switch on the user profile to True. Will no longer show up, but data can still be manually accessed.
+		"""
+		qb = self.loadQB(qbid)
+		
+		qb['DELETED'] = True
+		
+		# overwrite qb
+		with open("{}\{}_QuestionBase.json".format(self.database,qbid), 'w') as f:
+			json.dump(qb, f, ensure_ascii=True, indent=4)	
+		f.close()
+		
+		return	
 		
 	def writeQuestion(self, qbid, question):
 		"""
@@ -106,14 +142,41 @@ class QuestionBaseConnector(DataConnector):
 				questions.append(q)
 		return questions
 		
+	def getCategories(self, qbid):
+		qb = self.loadQuestions(qbid)
+		cats = []
+		for q in qb:
+			for cat in q['CATEGORIES']:
+				if cat not in cats:
+					cats.append(cat)
+		
+		return cats
+		
 		
 
 class UserProfileConnector(DataConnector):
 	def __init__(self, dataStore):
 		DataConnector.__init__(self, dataStore)
 		self.database = r"{}\UserBase".format(self.dataStore)
-		print(self.database)
+	
+
+	def getUsers(self):
+		"""
+		Load all user profile names and ids
+		"""
+		profiles = os.listdir("{}".format(self.database))
+		# ID and name
+		users = []
+		for profile in profiles:
+			id = profile.split('_')[0]
+			with open("{}\{}".format(self.database, profile), 'r') as f:
+				data = json.load(f)
+			f.close()
+			if not data['DELETED']:
+				name = data['NAME']
+				users.append((name, id))
 		
+		return users
 		
 	def newUser(self, name):
 		"""
@@ -126,6 +189,7 @@ class UserProfileConnector(DataConnector):
 		base_setup = {}
 		base_setup['ID'] = id
 		base_setup['NAME'] = name
+		base_setup['DELETED'] = False
 		base_setup['QUESTIONS'] = []
 		
 		with open("{}\{}".format(self.database, new_base), 'w') as f:
@@ -145,6 +209,28 @@ class UserProfileConnector(DataConnector):
 			raise ValueError("No question base by that ID found in the Data Store")
 		
 		return up
+		
+	def overwriteUser(self, uid, up):
+		"""
+		Overwrite the user profile
+		"""
+		# overwrite user profile
+		with open("{}\{}_UserProfile.json".format(self.database, uid), 'w') as f:
+			json.dump(up, f, ensure_ascii=True, indent=4)
+		f.close()	
+		return
+		
+	def setDeleted(self, uid):
+		"""
+		Toggle the deleted switch on the user profile to True. Will no longer show up, but data can still be manually accessed.
+		"""
+		up = self.loadUser(uid)
+		
+		up['DELETED'] = True
+		
+		self.overwriteUser(uid, up)
+		
+		return	
 
 	def userAnswer(self, userid, qbid, qid, correct):
 		"""
@@ -177,10 +263,9 @@ class UserProfileConnector(DataConnector):
 			new_question['CORRECT'] = 0
 			new_question['INCORRECT'] = 1
 		up['QUESTIONS'].append(new_question)
+		
 		# overwrite user profile
-		with open("{}\{}_UserProfile.json".format(self.database, userid), 'w') as f:
-			json.dump(up, f, ensure_ascii=True, indent=4)
-		f.close()	
+		self.overwriteUser(userid, up)
 		return
 				
 			

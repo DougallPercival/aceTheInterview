@@ -1,33 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>NewUser</class>
- <widget class="QWidget" name="NewUser">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>360</width>
+    <width>400</width>
     <height>154</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Dialog</string>
   </property>
-  <widget class="QLineEdit" name="lineEdit">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>70</y>
-     <width>241</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>40</y>
+     <x>90</x>
+     <y>20</y>
      <width>231</width>
      <height>20</height>
     </rect>
@@ -46,8 +39,8 @@
   <widget class="QPushButton" name="qb_create">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>110</y>
+     <x>120</x>
+     <y>90</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -56,11 +49,21 @@
     <string>Create</string>
    </property>
   </widget>
+  <widget class="QLineEdit" name="qb_lineEdit">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>50</y>
+     <width>241</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
   <widget class="QPushButton" name="qb_cancel">
    <property name="geometry">
     <rect>
-     <x>150</x>
-     <y>110</y>
+     <x>200</x>
+     <y>90</y>
      <width>75</width>
      <height>23</height>
     </rect>
