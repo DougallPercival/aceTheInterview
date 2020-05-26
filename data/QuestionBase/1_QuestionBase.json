@@ -1,0 +1,274 @@
+{
+    "ID": 1,
+    "NAME": "Data Science Theory",
+    "DELETED": false,
+    "QUESTIONS": [
+        {
+            "QUESTION": "\nWhat is the Central Limit Theorem and why is it important?\n",
+            "ANSWER": "\nSuppose that we are interested in estimating the average height among all people. Collecting data for every person in the world is impossible. While we can\u2019t obtain a height measurement from everyone in the population, we can still sample some people. The question now becomes, what can we say about the average height of the entire population given a single sample. The Central Limit Theorem addresses this question exactly.\n",
+            "CATEGORIES": [
+                "Statistics"
+            ],
+            "DELETED": false,
+            "ID": 0
+        },
+        {
+            "QUESTION": "\nWhat is sampling?\n",
+            "ANSWER": "\nData sampling is a statistical analysis technique used to select, manipulate and analyze a representative subset of data points to identify patterns and trends in the larger data set being examined.\n",
+            "CATEGORIES": [
+                "Statistics"
+            ],
+            "DELETED": false,
+            "ID": 1
+        },
+        {
+            "QUESTION": "\nWhat is the difference between type I vs type II error?\n",
+            "ANSWER": "\nA type I error occurs when the null hypothesis is true, but is rejected. A type II error occurs when the null hypothesis is false, but erroneously fails to be rejected.\n",
+            "CATEGORIES": [
+                "Statistics"
+            ],
+            "DELETED": false,
+            "ID": 2
+        },
+        {
+            "QUESTION": "\nWhat is a Type I error?\n",
+            "ANSWER": "\nFalse positive error. Example - Binary classification, looking for cats in images, picture of dog classified as cat. On a confusion matrix from SKLearn, this would be top-right\n",
+            "CATEGORIES": [
+                "Statistics"
+            ],
+            "DELETED": false,
+            "ID": 3
+        },
+        {
+            "QUESTION": "\nWhat is a Type II error?\n",
+            "ANSWER": "\nFalse negative error. Example - Binary classification, looking for cats in images, classifying a picture of cat as a dog. On a confusion matrix from SKLearn, this would be bottom-left.\n",
+            "CATEGORIES": [
+                "Statistics"
+            ],
+            "DELETED": false,
+            "ID": 4
+        },
+        {
+            "QUESTION": "\nWhat is linear regression? What do the terms p-value, coefficient, and r-squared value mean? What is the significance of each of these components?\n",
+            "ANSWER": "\nA linear regression is a good tool for quick predictive analysis: for example, the price of a house depends on a myriad of factors, such as its size or its location. In order to see the relationship between these variables, we need to build a linear regression, which predicts the line of best fit between them and can help conclude whether or not these two factors have a positive or negative relationship. \n",
+            "CATEGORIES": [
+                "Statistics"
+            ],
+            "DELETED": false,
+            "ID": 5
+        },
+        {
+            "QUESTION": "\nWhat is a p-value?\n",
+            "ANSWER": "\nA p-value lower than the alpha (i.e. 0.05) indicates statistical significance of a variable, and you can reject the null-hypothesis. Higher indicates the variable is not significant, can accept the null hypothesis\n",
+            "CATEGORIES": [
+                "Statistics"
+            ],
+            "DELETED": false,
+            "ID": 6
+        },
+        {
+            "QUESTION": "\nWhat are the assumptions required for linear regression? \n",
+            "ANSWER": "\nThere are four major assumptions: 1. There is a linear relationship between the dependent variables and the regressors, meaning the model you are creating actually fits the data, 2. The errors or residuals of the data are normally distributed and independent from each other, 3. There is minimal multicollinearity between explanatory variables, and 4. Homoscedasticity. This means the variance around the regression line is the same for all values of the predictor variable.\n",
+            "CATEGORIES": [
+                "Statistics"
+            ],
+            "DELETED": false,
+            "ID": 7
+        },
+        {
+            "QUESTION": "\nWhat is a statistical interaction? \n",
+            "ANSWER": "\nBasically, an interaction is when the effect of one factor (input variable) on the dependent variable (output variable) differs among levels of another factor.\n",
+            "CATEGORIES": [
+                "Statistics"
+            ],
+            "DELETED": false,
+            "ID": 8
+        },
+        {
+            "QUESTION": "\nWhat is selection bias?\n",
+            "ANSWER": "\nSelection (or \u2018sampling\u2019) bias occurs in an \u2018active,\u2019 sense when the sample data that is gathered and prepared for modeling has characteristics that are not representative of the true, future population of cases the model will see. That is, active selection bias occurs when a subset of the data are systematically (i.e., non-randomly) excluded from analysis.\n",
+            "CATEGORIES": [
+                "Statistics"
+            ],
+            "DELETED": false,
+            "ID": 9
+        },
+        {
+            "QUESTION": "\nWhat is an example of a data set with a non-Gaussian distribution?\n",
+            "ANSWER": "\nThe Gaussian distribution is part of the Exponential family of distributions, but there are a lot more of them, with the same sort of ease of use, in many cases, and if the person doing the machine learning has a solid grounding in statistics, they can be utilized where appropriate.\n",
+            "CATEGORIES": [
+                "Statistics"
+            ],
+            "DELETED": false,
+            "ID": 10
+        },
+        {
+            "QUESTION": "\nWhat is the Binomial Probability Formula?\n",
+            "ANSWER": "\nThe binomial distribution consists of the probabilities of each of the possible numbers of successes on N trials for independent events that each have a probability of \u03c0 (the Greek letter pi) of occurring\n",
+            "CATEGORIES": [
+                "Statistics"
+            ],
+            "DELETED": false,
+            "ID": 11
+        },
+        {
+            "QUESTION": "\nWhat are two main components of the Hadoop framework?\n",
+            "ANSWER": "\nThe Hadoop Distributed File System (HDFS), MapReduce, and YARN\n",
+            "CATEGORIES": [
+                "Programming",
+                "Big Data",
+                "Hadoop"
+            ],
+            "DELETED": false,
+            "ID": 12
+        },
+        {
+            "QUESTION": "\nExplain how MapReduce works as simply as possible.\n",
+            "ANSWER": "\nMapReduce is a programming model that enables distributed processing of large data sets on compute clusters of commodity hardware. Hadoop MapReduce first performs mapping which involves splitting a large file into pieces to make another set of data\n",
+            "CATEGORIES": [
+                "Programming",
+                "Big Data",
+                "Hadoop"
+            ],
+            "DELETED": false,
+            "ID": 13
+        },
+        {
+            "QUESTION": "\nIn Python, how is memory managed?\n",
+            "ANSWER": "\nIn Python, memory is managed in a private heap space. This means that all the objects and data structures will be located in a private heap. However, the programmer won\u2019t be allowed to access this heap. Instead, the Python interpreter will handle it. At the same time, the core API will enable access to some Python tools for the programmer to start coding. The memory manager will allocate the heap space for the Python objects while the inbuilt garbage collector will recycle all the memory that\u2019s not being used to boost available heap space\n",
+            "CATEGORIES": [
+                "Programming",
+                "Python"
+            ],
+            "DELETED": false,
+            "ID": 14
+        },
+        {
+            "QUESTION": "\nWhat is the difference between a tuple and a list in Python?\n",
+            "ANSWER": "\nApart from tuples being immutable there is also a semantic distinction that should guide their usage.\n",
+            "CATEGORIES": [
+                "Programming",
+                "Python"
+            ],
+            "DELETED": false,
+            "ID": 15
+        },
+        {
+            "QUESTION": "\nWhat is the purpose of the group functions in SQL? Give some examples of group functions.\n",
+            "ANSWER": "\nGroup functions are necessary to get summary statistics of a data set. COUNT, MAX, MIN, AVG, SUM, and DISTINCT are all group functions.\n",
+            "CATEGORIES": [
+                "SQL"
+            ],
+            "DELETED": false,
+            "ID": 16
+        },
+        {
+            "QUESTION": "\nTell me the difference between an inner join, left join/right join, and union.\n",
+            "ANSWER": "\nIn a Venn diagram the inner join is when both tables have a match, a left join is when there is a match in the left table and the right table is null, a right join is the opposite of a left join, and a full join is all of the data combined.\n",
+            "CATEGORIES": [
+                "SQL"
+            ],
+            "DELETED": false,
+            "ID": 17
+        },
+        {
+            "QUESTION": "\nIn SQL, What does UNION do? What is the difference between UNION and UNION ALL?\n",
+            "ANSWER": "\nUNION removes duplicate records (where all columns in the results are the same), UNION ALL does not.\n",
+            "CATEGORIES": [
+                "SQL"
+            ],
+            "DELETED": false,
+            "ID": 18
+        },
+        {
+            "QUESTION": "\nHow is k-NN different from k-means clustering?\n",
+            "ANSWER": "\nk-NN, or k-nearest neighbors is a classification algorithm, where the k is an integer describing the number of neighboring data points that influence the classification of a given observation. K-means is a clustering algorithm, where the k is an integer describing the number of clusters to be created from the given data.\n",
+            "CATEGORIES": [
+                "Machine Learning"
+            ],
+            "DELETED": false,
+            "ID": 19
+        },
+        {
+            "QUESTION": "\nExplain the 80/20 rule, and tell me about its importance in model validation.\n",
+            "ANSWER": "\nPeople usually tend to start with a 80-20% split (80% training set \u2013 20% test set) and split the training set once more into a 80-20% ratio to create the validation set.\n",
+            "CATEGORIES": [
+                "Machine Learning"
+            ],
+            "DELETED": false,
+            "ID": 20
+        },
+        {
+            "QUESTION": "\nExplain what precision and recall are. How do they relate to the ROC curve?\n",
+            "ANSWER": "\nRecall describes what percentage of true positives are described as positive by the model. Precision describes what percent of positive predictions were correct. The ROC curve shows the relationship between model recall and specificity\u2013specificity being a measure of the percent of true negatives being described as negative by the model. Recall, precision, and the ROC are measures used to identify how useful a given classification model is.\n",
+            "CATEGORIES": [
+                "Machine Learning"
+            ],
+            "DELETED": false,
+            "ID": 21
+        },
+        {
+            "QUESTION": "\nWhat is recall?\n",
+            "ANSWER": "\nRecall describes what percentage of true positives are described as positive by the model.\n",
+            "CATEGORIES": [
+                "Machine Learning"
+            ],
+            "DELETED": false,
+            "ID": 22
+        },
+        {
+            "QUESTION": "\nWhat is precision?\n",
+            "ANSWER": "\nPrecision describes what percent of positive predictions were correct.\n",
+            "CATEGORIES": [
+                "Machine Learning"
+            ],
+            "DELETED": false,
+            "ID": 23
+        },
+        {
+            "QUESTION": "\nWhat is the ROC curve?\n",
+            "ANSWER": "\n The ROC curve shows the relationship between model recall and specificity\u2013specificity being a measure of the percent of true negatives being described as negative by the model.\n",
+            "CATEGORIES": [
+                "Machine Learning"
+            ],
+            "DELETED": false,
+            "ID": 24
+        },
+        {
+            "QUESTION": "\nExplain the difference between L1 and L2 regularization methods.\n",
+            "ANSWER": "\nA regression model that uses L1 regularization technique is called Lasso Regression and model which uses L2 is called Ridge Regression. The key difference between these two is the penalty term.\n",
+            "CATEGORIES": [
+                "Machine Learning"
+            ],
+            "DELETED": false,
+            "ID": 25
+        },
+        {
+            "QUESTION": "\nExplain the difference between supervised and unsupervised machine learning.\n",
+            "ANSWER": "\nSupervised machine learning requires labelled data, while unsupervised does not. Unsupervised machine learning often involves methods such as clustering, or principal component, while supervised algorithms perform classification and prediction.\n",
+            "CATEGORIES": [
+                "Machine Learning"
+            ],
+            "DELETED": false,
+            "ID": 26
+        },
+        {
+            "QUESTION": "\nWhat is the bias-variance trade off ?\n",
+            "ANSWER": "\nHigh bias point to an underfit model, probably due to the algorithm over-simplifying the actual data. High variance points to an overfit model, probably due to the algorithm learning too much noise from the training set, and being unable to generalize to the testing set. The tradeoff between the two is finding the right amount of each that allows the model to generalize between a training and testing set.\n",
+            "CATEGORIES": [
+                "Machine Learning"
+            ],
+            "DELETED": false,
+            "ID": 27
+        },
+        {
+            "QUESTION": "\nExplain bias and variance.\n",
+            "ANSWER": "\nBias is a measure of error in a given dataset (i.e. training dataset). A high bias points to an underfit model that oversimplifies the dataset. Variance is a measure of sensitivity to fluctuations in training / testing sets. High variance points to an overfit model, which captures too much noise from the training set to generalize to the test set.\n",
+            "CATEGORIES": [
+                "Machine Learning"
+            ],
+            "DELETED": false,
+            "ID": 28
+        }
+    ]
+}
