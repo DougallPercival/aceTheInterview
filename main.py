@@ -1,5 +1,6 @@
 import os
 import sys
+from random import shuffle
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5 import uic
@@ -82,10 +83,13 @@ class StartQT5(QtWidgets.QMainWindow,ui[0]):
 		self.questionBase_delete.clicked.connect(self.delete_qb)
 		self.questionBase_new.clicked.connect(self.new_qb)		
 		
-		self.user_stats.clicked.connect(self.new_user)
+		self.user_stats.clicked.connect(self.new_user) #TODO:
+		
 		self.question_write.clicked.connect(self.write_question)
-		self.question_delete.clicked.connect(self.new_user)
-		self.start_quiz.clicked.connect(self.new_user)
+		self.question_edit.clicked.connect(self.new_user) #TODO:
+		self.questions_download.clicked.connect(self.new_user) #TODO:
+		
+		self.start_quiz.clicked.connect(self.quiz_start)
 	
 
 	def load_users(self):
@@ -194,6 +198,8 @@ class StartQT5(QtWidgets.QMainWindow,ui[0]):
 			self.current_qb = self.qbConnector.loadQB(qbid=int(qb.strip()))
 		# set labels to current user profile
 		self.questionbase_label.setText("Question Base: {}".format(self.current_qb['NAME']))
+		# set up categories list
+		self.setCategories()
 		return
 		
 	def delete_qb(self):
@@ -216,12 +222,8 @@ class StartQT5(QtWidgets.QMainWindow,ui[0]):
 		"""
 		Once a question base is loaded, or a new question is added, establish the categories box.
 		"""
-		# get count
-		cnt = self.categories_list.count()
-		# remove all items
-		if cnt > 0:
-			for i in range(cnt, -1, -1):
-				self.categories_list.removeItem(i)
+		# reset categories
+		self.categories_list.clear()
 				
 		# get categories
 		self.categories_list.addItem("<ALL>")
@@ -243,6 +245,30 @@ class StartQT5(QtWidgets.QMainWindow,ui[0]):
 		self.load_qb()
 		return
 		
+	def quiz_start(self):
+		"""
+		Start the quiz
+		Loads UserID, QBID, number of questions, and specified categories to the quiz window
+		Quiz Window handles generation of quiz
+		"""
+		
+		
+		try:
+			num_qs = int(self.numquestions.text())
+		except:
+			num_qs = -1
+		
+		# get selected categories
+		cats = []
+		if len(self.categories_list.selectedItems()) > 0:
+			for item in self.categories_list.selectedItems():
+				cats.append(item.text())
+		quizWindow = QuizWindow(self.current_user['ID'], self.current_qb['ID'], num_qs, cats)
+		quizWindow.exec_()
+		
+		#reload user profile
+		self.load_user()
+		return
 		
 		
 	def click_exit(self):
@@ -357,8 +383,8 @@ class NewQuestionWindow(QtWidgets.QDialog,ui[3]):
 		if len(self.category3.text().strip()) > 0:
 			categories.append(self.category3.text().strip())
 			
-		# add questions
-		question = {"QUESTION":q_text, "ANSWER":a_text, "CATEGORIES":categories}
+		# add questions - if deleted, keep them in list in case someone wants to bring them back
+		question = {"QUESTION":q_text, "ANSWER":a_text, "CATEGORIES":categories, "DELETED":False} 
 		self.qbConnector.writeQuestion(self.questionBaseID, question)
 		
 		return
@@ -396,17 +422,107 @@ class NewQuestionWindow(QtWidgets.QDialog,ui[3]):
 		
 		
 class QuizWindow(QtWidgets.QDialog,ui[4]):
-	def __init__(self, questionBaseID, userID):
+	def __init__(self, questionBaseID, userID, num_questions, categories):
 		QtWidgets.QWidget.__init__(self)
 		self.setupUi(self)				
 		self.qbConnector = DataConnector.QuestionBaseConnector(r"data")
 		self.userConnector = DataConnector.UserProfileConnector(r"data")
 		self.questionBaseID = questionBaseID
 		self.userID = userID
+		self.num_questions = num_questions
+		self.categories = categories
+		
+		# define question
+		self.quiz, self.quiz_index = self.createQuiz()
+		# if there are no questions, end early
+		if len(self.quiz) == 0:
+			self.show_answer.setEnabled(False)
+			self.next_question.setEnabled(False)
+			self.correctRadio.setEnabled(False)
+			self.incorrectRadio.setEnabled(False)
+			self.questionText.setText("No questions found for this quiz")
+		else:
+			self.incorrectRadio.setChecked(True)
+			self._displayQuestion()
+		# display first question
+		
+		# button setup
+		self.show_answer.clicked.connect(self.showAnswer)
+		self.next_question.clicked.connect(self.nextQuestion)
+		self.end_quiz.clicked.connect(self.endQuiz)
+	
+
+	def createQuiz(self):
+		"""
+		Get questions for the quiz, random ordering.
+		"""
+		if len(self.categories) > 0:
+			if self.categories[0] == "<ALL>":
+				questions = self.qbConnector.loadQuestions(self.questionBaseID)
+				return
+			else:
+				questions = self.qbConnector.loadQuestions(self.questionBaseID, categories=self.categories)
+		else:
+			questions = self.qbConnector.loadQuestions(self.questionBaseID)
+		
+		# shuffle questions
+		shuffle(questions)
+		return questions, 0
+	
+	def _displayQuestion(self):
+		"""
+		Display question on the question text line.
+		"""
+		current_question = self.quiz[self.quiz_index]
+		self.questionText.setText(current_question['QUESTION'])
+		return
+	
+	def showAnswer(self):
+		"""
+		Show the answer of the current question
+		"""
+		current_question = self.quiz[self.quiz_index]
+		self.answerText.setText(current_question['ANSWER'])
+		return
+		
+	def nextQuestion(self):
+		"""
+		Proceed to the next question
+		Update self.quiz_index to be 1 higher
+		Update user profile with Question ID answered, correct/incorrect values
+		Reset correct/incorrect radio buttons
+		"""
+		self.questionText.clear()
+		self.answerText.clear()
+		
+		# get id
+		questionID = self.quiz[self.quiz_index]['ID']
+		# get correct/incorrect
+		if self.correctRadio.isChecked():
+			correct = True
+		elif self.incorrectRadio.isChecked():
+			correct = False
+		
+		self.userConnector.userAnswer(self.userID, self.questionBaseID, questionID, correct)
 		
 		
+		self.quiz_index += 1
+		self.incorrectRadio.setChecked(True)
 		
-		
+		# display next question if exists
+		if self.quiz_index == len(self.quiz):
+			self.endQuiz()
+			return
+			
+		self._displayQuestion()
+		return
+	
+	def endQuiz(self):
+		"""
+		Finish quiz, close window
+		"""
+		self.close()
+		return
 		
 		
 		

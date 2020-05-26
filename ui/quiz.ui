@@ -26,7 +26,7 @@
     <string>Show Answer</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="next_question">
    <property name="geometry">
     <rect>
      <x>144</x>
@@ -79,7 +79,7 @@
     <string>Answer</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="end_quiz">
    <property name="geometry">
     <rect>
      <x>350</x>

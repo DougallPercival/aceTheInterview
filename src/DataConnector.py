@@ -102,6 +102,8 @@ class QuestionBaseConnector(DataConnector):
 		Write a question to a question base
 		"""
 		qb = self.loadQB(qbid)
+		# get number of questions and add ID
+		question['ID'] = len(qb['QUESTIONS'])
 		qb['QUESTIONS'].append(question)
 		
 		# overwrite qb
@@ -128,21 +130,28 @@ class QuestionBaseConnector(DataConnector):
 		Load all questions from the QB.
 		Can subset by passing a list of categories
 		"""
+		questions = []
 		qb = self.loadQB(qbid)
 		if categories is None:
-			return qb['QUESTIONS']
-
-		questions = []
+			for q in qb['QUESTIONS']:
+				if not q['DELETED']:
+					questions.append(q)
+			return questions
+		
 		for q in qb['QUESTIONS']:
 			to_append=False
 			for cat in q['CATEGORIES']:
 				if cat in categories:
 					to_append=True
-			if to_append:
+			if to_append and not q['DELETED']:
 				questions.append(q)
 		return questions
-		
+	
+	
 	def getCategories(self, qbid):
+		"""
+		Get unique question categories
+		"""
 		qb = self.loadQuestions(qbid)
 		cats = []
 		for q in qb:

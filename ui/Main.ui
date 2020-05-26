@@ -148,7 +148,7 @@
      <string>User:</string>
     </property>
    </widget>
-   <widget class="QLabel" name="loadQB">
+   <widget class="QLabel" name="questionbase_label">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -181,7 +181,7 @@
      <string>Write New Question</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="question_delete">
+   <widget class="QPushButton" name="question_edit">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -191,7 +191,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Delete Question</string>
+     <string>Edit Questions</string>
     </property>
    </widget>
    <widget class="QListWidget" name="categories_list">
@@ -224,7 +224,7 @@
      </font>
     </property>
     <property name="toolTip">
-     <string>To only quiz yourself on specific categories, make selections here.</string>
+     <string>To only quiz yourself on specific categories, make selections here. If &lt;ALL&gt; is selected, no matter what other categories were selected, ALL will be used.</string>
     </property>
     <property name="text">
      <string>Select Question Categories</string>
@@ -256,7 +256,7 @@
      <string>See User Stats</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="numquestions">
     <property name="geometry">
      <rect>
       <x>460</x>
@@ -281,11 +281,14 @@
       <bold>true</bold>
      </font>
     </property>
+    <property name="toolTip">
+     <string>Please insert a number. Any non-numeric addition will default to ALL.</string>
+    </property>
     <property name="text">
      <string>Specify number of questions</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="question_delete_2">
+   <widget class="QPushButton" name="questions_download">
     <property name="geometry">
      <rect>
       <x>40</x>
