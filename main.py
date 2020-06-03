@@ -58,6 +58,9 @@ ui.append(uic.loadUiType(uipath)[0])
 uipath = r"{}\ui\quiz.ui".format(os.path.dirname(os.path.realpath(__file__)))
 ui.append(uic.loadUiType(uipath)[0])
 
+uipath = r"{}\ui\stats.ui".format(os.path.dirname(os.path.realpath(__file__)))
+ui.append(uic.loadUiType(uipath)[0])
+
 # Main Window
 class StartQT5(QtWidgets.QMainWindow,ui[0]):
 	"""
@@ -83,7 +86,7 @@ class StartQT5(QtWidgets.QMainWindow,ui[0]):
 		self.questionBase_delete.clicked.connect(self.delete_qb)
 		self.questionBase_new.clicked.connect(self.new_qb)		
 		
-		self.user_stats.clicked.connect(self.new_user) #TODO:
+		self.user_stats.clicked.connect(self.show_stats)
 		
 		self.question_write.clicked.connect(self.write_question)
 		self.question_edit.clicked.connect(self.new_user) #TODO:
@@ -268,6 +271,15 @@ class StartQT5(QtWidgets.QMainWindow,ui[0]):
 		
 		#reload user profile
 		self.load_user()
+		return
+		
+	def show_stats(self):
+		"""
+		Show a user's stats
+		"""
+		statsWindow = StatsWindow(self.current_user['ID'], self.current_qb['ID'])
+		statsWindow.exec_()
+		
 		return
 		
 		
@@ -525,7 +537,137 @@ class QuizWindow(QtWidgets.QDialog,ui[4]):
 		return
 		
 		
+class StatsWindow(QtWidgets.QDialog,ui[5]):
+	def __init__(self, questionBaseID, userID):
+		QtWidgets.QWidget.__init__(self)
+		self.setupUi(self)	
+		self.qbConnector = DataConnector.QuestionBaseConnector(r"data")
+		self.userConnector = DataConnector.UserProfileConnector(r"data")
+		self.questionBaseID = questionBaseID
+		self.userID = userID
 		
+		self.__loadQuestions()
+		
+		#setup stat holding variables
+		self.__setupStatVariables()
+		
+		# query stats for ALL categories to start
+		self.queryStats()
+		self.__displayStats()
+		self.__loadCategories()
+		
+		# button connectors
+		self.closeButton.clicked.connect(self.exitDialog)
+		self.applyButton.clicked.connect(self.apply)
+		
+		
+		
+	def __loadQuestions(self):
+		"""
+		Load questions and user profile stats for querying
+		"""
+		self.questionbase = self.qbConnector.questionStatsQuery(self.questionBaseID)
+		self.userstats = self.userConnector.userStatsQuery(self.userID)
+		return
+		
+	def __setupStatVariables(self):
+		"""
+		Setup stat variables to defaults of 0
+		"""
+		self.attempts = 0
+		self.correct = 0
+		self.incorrect = 0
+		self.percentCorrect = 0.0
+		return
+		
+	def __loadCategories(self):
+		"""
+		Load categories to the list widget
+		"""
+		# reset categories
+		self.categories_list.clear()
+				
+		# get categories
+		self.categories_list.addItem("<ALL>")
+		
+		categories = self.qbConnector.getCategories(self.questionBaseID)
+		for cat in categories:
+			self.categories_list.addItem(cat)
+			
+		return
+		
+		
+	def queryStats(self, category=None):
+		"""
+		Return the statistics for the given categories. None represents ALL categories.
+		"""
+		# for all cats
+		if category is None:
+			for q in self.userstats:
+				self.attempts += q['ATTEMPTS']
+				self.correct += q['CORRECT']
+				self.incorrect += q['INCORRECT']
+			# get percentage correct
+			self.percentCorrect = round((self.correct / self.attempts) * 100, 2)
+			
+		else:
+			possible_questions = []
+			# identify question ids in category
+			for question in self.questionbase:
+				if not question['DELETED']:
+					if category in question['CATEGORIES']:
+						possible_questions.append(question['ID'])
+			
+			for q in self.userstats:
+				# QID, QBID are part of q
+				if q['QID'] in possible_questions:
+					self.attempts += q['ATTEMPTS']
+					self.correct += q['CORRECT']
+					self.incorrect += q['INCORRECT']
+			# get percentage correct
+			if self.attempts > 0:
+				self.percentCorrect = round((self.correct / self.attempts) * 100, 2)
+			
+		return
+		
+	def __displayStats(self):
+		"""
+		Display current stats to the dialog window
+		"""
+		self.line_attempted.setText(str(self.attempts))
+		self.line_correct.setText(str(self.correct))
+		self.line_incorrect.setText(str(self.incorrect))
+		self.line_pct.setText("{}%".format(self.percentCorrect))
+		return
+		
+	def apply(self):
+		"""
+		Apply the selected category 
+		"""
+		self.__setupStatVariables()
+		# get selected category
+		category = ""
+		if len(self.categories_list.selectedItems()) > 0:
+			for item in self.categories_list.selectedItems():
+				category = item.text()
+		else:
+			category = "<ALL>"
+		
+		if category == "<ALL>":
+			category = None
+		
+	
+		self.queryStats(category=category)
+		self.__displayStats()
+
+		return
+		
+	def exitDialog(self):
+		"""
+		close window
+		"""
+		self.close()
+		return
 		
 		
 if __name__ == "__main__":

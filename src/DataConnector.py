@@ -161,7 +161,21 @@ class QuestionBaseConnector(DataConnector):
 		
 		return cats
 		
+	def questionStatsQuery(self, qbid):
+		"""
+		Return all question base questions for further querying. So that we can find:
+		 - number of questions attempted
+		 - number of questions correct
+		 - number of questions incorrect
+		 - percentage of questions correct
+		 - all could be by category
+		"""
+		questions = self.loadQuestions(qbid)
+		return questions
 		
+		
+
+
 
 class UserProfileConnector(DataConnector):
 	def __init__(self, dataStore):
@@ -277,6 +291,21 @@ class UserProfileConnector(DataConnector):
 		self.overwriteUser(userid, up)
 		return
 				
+				
+	def userStatsQuery(self, userid):
+		"""
+		Query the user's statistics, and return all the question values. Part of the statistics funcationality to find:
+		 - number of questions attempted
+		 - number of questions correct
+		 - number of questions incorrect
+		 - percentage of questions correct
+		"""
+		up = self.loadUser(userid)
+		return up['QUESTIONS']
+		
+		
+		
+		
 			
 		
 			
