@@ -112,7 +112,7 @@ class StartQT5(QtWidgets.QMainWindow,ui[0]):
 		Deletions are not final
 		"""
 		# verify current index in userProfile_box
-		_
+		
 		curind = str(self.userProfile_box.currentIndex())
 		if int(curind) == 0:
 			return
@@ -231,7 +231,7 @@ class StartQT5(QtWidgets.QMainWindow,ui[0]):
 		if len(self.categories_list.selectedItems()) > 0:
 			for item in self.categories_list.selectedItems():
 				cats.append(item.text())
-		quizWindow = QuizWindow(self.current_user['ID'], self.current_qb['ID'], num_qs, cats)
+		quizWindow = QuizWindow(self.current_qb['ID'], self.current_user['ID'], num_qs, cats)
 		quizWindow.exec_()
 		
 		#reload user profile
@@ -320,7 +320,6 @@ class NewQuestionWindow(QtWidgets.QDialog,ui[3]):
 		self.setupUi(self)		
 		self.qbConnector = DataConnector.QuestionBaseConnector(r"data")
 		self.questionBaseID = questionBaseID
-		print(self.questionBaseID )
 		
 		# set button functions
 		self.anotherButton.clicked.connect(self.another)	
@@ -408,7 +407,7 @@ class QuizWindow(QtWidgets.QDialog,ui[4]):
 		self.userID = userID
 		self.num_questions = num_questions
 		self.categories = categories
-		
+
 		# define question
 		self.quiz, self.quiz_index = self.createQuiz()
 		# if there are no questions, end early

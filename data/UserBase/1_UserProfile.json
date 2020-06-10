@@ -1,7 +1,7 @@
 {
     "ID": 1,
     "NAME": "Dougall",
-    "DELETED": false,
+    "DELETED": true,
     "QUESTIONS": [
         {
             "QBID": 1,
