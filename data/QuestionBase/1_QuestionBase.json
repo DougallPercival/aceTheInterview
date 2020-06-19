@@ -49,7 +49,7 @@
             "ID": 4
         },
         {
-            "QUESTION": "\nWhat is linear regression? What do the terms p-value, coefficient, and r-squared value mean? What is the significance of each of these components?\n",
+            "QUESTION": "\nWhat is linear regression?\n",
             "ANSWER": "\nA linear regression is a good tool for quick predictive analysis: for example, the price of a house depends on a myriad of factors, such as its size or its location. In order to see the relationship between these variables, we need to build a linear regression, which predicts the line of best fit between them and can help conclude whether or not these two factors have a positive or negative relationship. \n",
             "CATEGORIES": [
                 "Statistics"
@@ -95,7 +95,7 @@
         },
         {
             "QUESTION": "\nWhat is an example of a data set with a non-Gaussian distribution?\n",
-            "ANSWER": "\nThe Gaussian distribution is part of the Exponential family of distributions, but there are a lot more of them, with the same sort of ease of use, in many cases, and if the person doing the machine learning has a solid grounding in statistics, they can be utilized where appropriate.\n",
+            "ANSWER": "\nThe Gaussian distribution (or Normal distribution) forms the inverted U shape. Examples of datasets with non-gaussian distribution could be incomes (extreme outliers) or time-series data - i.e. website traffic: may spike after a certain event, causing normally distributed load-times to change.",
             "CATEGORIES": [
                 "Statistics"
             ],
@@ -113,7 +113,7 @@
         },
         {
             "QUESTION": "\nWhat are two main components of the Hadoop framework?\n",
-            "ANSWER": "\nThe Hadoop Distributed File System (HDFS), MapReduce, and YARN\n",
+            "ANSWER": "\nThe Hadoop Distributed File System (HDFS), and YARN\n",
             "CATEGORIES": [
                 "Programming",
                 "Big Data",
@@ -124,7 +124,7 @@
         },
         {
             "QUESTION": "\nExplain how MapReduce works as simply as possible.\n",
-            "ANSWER": "\nMapReduce is a programming model that enables distributed processing of large data sets on compute clusters of commodity hardware. Hadoop MapReduce first performs mapping which involves splitting a large file into pieces to make another set of data\n",
+            "ANSWER": "\nMapReduce is a programming model that enables distributed processing of large data sets on compute clusters of commodity hardware. Hadoop MapReduce first performs mapping which involves splitting a large file into pieces to make another set of data.\nThese are then fed to reduce tasks, and the JobTracker tracks those tasks on separate instances and restarts failed nodes.",
             "CATEGORIES": [
                 "Programming",
                 "Big Data",
@@ -164,7 +164,7 @@
         },
         {
             "QUESTION": "\nTell me the difference between an inner join, left join/right join, and union.\n",
-            "ANSWER": "\nIn a Venn diagram the inner join is when both tables have a match, a left join is when there is a match in the left table and the right table is null, a right join is the opposite of a left join, and a full join is all of the data combined.\n",
+            "ANSWER": "\nIn a Venn diagram the inner join is when both tables have a match, a left join is when there is a match in the left table and the right table is null, a right join is the opposite of a left join, and a full join is all of the data combined.\nUNION functions similar to an append.",
             "CATEGORIES": [
                 "SQL"
             ],
