@@ -269,6 +269,46 @@
             ],
             "DELETED": false,
             "ID": 28
+        },
+        {
+            "QUESTION": "Explain how Artificial Neural Networks make decisions.",
+            "ANSWER": "Artifical Neural Networks perform Deep Learning with forward and backward-propagation. Forward-propagations involves passing the data through an acivation function (i.e. ReLU, Tanh), then multiplying it by weights. A bias value is passed from each node as well. Once an output is achieved, the network performs backwards-propagation, by calculating the gradient of the loss function w.r.t the network weights. In other words, the partial derivative of each activation function is added to the back-prop equation, and the data is multiplied back through the network.\n\nThe network runs for a set amount of iterations. Stochastic Gradient Descent can be used to randomly sample the data, generally shortening the amount of time required for training.",
+            "CATEGORIES": [
+                "Machine Learning",
+                "Deep Learning"
+            ],
+            "DELETED": false,
+            "ID": 29
+        },
+        {
+            "QUESTION": "Explain the difference between ANN's, RNN's, and CNN's.\t",
+            "ANSWER": "An Artificial Neural Network, or Perceptron, is a feed-forward Neural Network. This is a fairly basic Neural Network, and will struggle on time-series data, or image/video processing problems.\n\nA Recurrent Neural Network is a Neural Network improves on the \"memory\" of the network, which is why it is useful for both time-series tasks and NLP tasks. \n\nA Convolutional Neural Network uses layers of Neural Networks to improve feature recognition steps. CNN's are very useful in Image Recognitions tasks, as they allow the network to break down an image and identify its components.",
+            "CATEGORIES": [
+                "Machine Learning",
+                "Deep Learning"
+            ],
+            "DELETED": false,
+            "ID": 30
+        },
+        {
+            "QUESTION": "What are vanishing and exploding gradients?",
+            "ANSWER": "In gradient descent, the goal is for the model to achieve a local minima on the gradient (found during back-propagation by getting partial derivatives) (note that it is a computationally infeasible problem to identify a global minima on such functions). \n\nThe vanishing gradient problem occurs when the network returns such a small gradient value that updating the weights with it offers no change. In other words, the network stops improving and the accuracy remains the same.\n\nOn the other hand, exploding gradients indicates the weights are changing too much every iteration. If we think of the local minima as a valley, exploding gradients means the value selected is coming from both sides of the valley, depending on the value achieved last iteration. The network will return wildly different results each iteration. ",
+            "CATEGORIES": [
+                "Machine Learning",
+                "Deep Learning"
+            ],
+            "DELETED": false,
+            "ID": 31
+        },
+        {
+            "QUESTION": "What are some effective techniques for classification or prediction tasks with time-series data?\t",
+            "ANSWER": "Linear regression: Can be used to identify the linear relationship between forecast variable and a predictor.\n\nLSTM (Long-short-term memory) Network: A type of Recurrent Neural Network most effective for handling time-series data. Handles dependencies on past data more effectively than a basic RNN.\n\n",
+            "CATEGORIES": [
+                "Machine Learning",
+                "Time-Series"
+            ],
+            "DELETED": false,
+            "ID": 32
         }
     ]
 }
