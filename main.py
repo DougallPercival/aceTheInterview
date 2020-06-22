@@ -54,8 +54,8 @@ class StartQT5(QtWidgets.QMainWindow,ui[0]):
 		self.user_stats.clicked.connect(self.show_stats)
 		
 		self.question_write.clicked.connect(self.write_question)
-		self.question_edit.clicked.connect(self.new_user) #TODO:
-		self.questions_download.clicked.connect(self.new_user) #TODO:
+		#self.question_edit.clicked.connect(self.new_user) #TODO:
+		#self.questions_download.clicked.connect(self.new_user) #TODO:
 		
 		self.start_quiz.clicked.connect(self.quiz_start)
 	
